@@ -21,8 +21,8 @@ protocol and layout; this file is what you need to know to work on it safely.
   for 30 s, then switches the backlight off (ui_shell.cpp). Sleep timeout (no flight data and no
   touch; OFF/5/10/30 min, default 10) is in NVS namespace "ui", key "sleep_min" (main.cpp).
   Touch is GT911 at 0x5D (reset via EXIO1); it keeps working with the backlight off.
-- Build from a local disk: on X: (a network share) the ESP-IDF build cannot find its own
-  files. Local copy: C:\Users\david\esp32-mfd7 (robocopy /E /XD .pio pyi-work).
+- Build from a local disk: on a network share the ESP-IDF build cannot find its own files.
+  Copy the project to a local folder first (robocopy /E /XD .pio pyi-work).
 
 ## Display stability (do not regress)
 
@@ -118,8 +118,8 @@ swapped (DMA starvation). The fix, all of which is needed:
   redraws it only when the grid, heading, range or position changes.
   `lv_draw_polygon` mis-fills the radar sector (fills outside the straight edges): use a mask.
 - Preview: `python tools/ui_preview/preview.py --live` records with real weather and METARs.
-- On this PC `python` on PATH is Inkscape's 3.11: use
-  `C:\Users\david\AppData\Local\Python\bin\python.exe` (3.14, has the packages).
+- Check which `python` is on PATH: other programs (Inkscape, for one) install their own Python
+  without pip or these packages. Call the right interpreter by its full path if needed.
 
 ## Direct-To (src/nav_dct.*, ui_dct.cpp, bridge navdb.find_airports)
 
@@ -147,7 +147,7 @@ Real weather (live radar, lightning, METARs) added 2026-10-08 in 1.1.0; display 
 and running with MSFS. Screen sleep added in 1.1.1. AeroRelics splash and branded app/setup in 1.1.2. Terrain from SD (TOPO / REL ALT) in 1.1.3.
 Direct-To (D-> softkey, map CDI / track vector / WPT-DIS-DTK-TRK-ETE strip) in 1.3.0
 (2026-10-20). 1.3.1 (2026-10-21): softkeys reordered by task, PFD MAP NRST WX RADIO AP EIS,
-then D-> SPLIT settings; flashed over UART1 to the second (new) board, not yet flown.
+then D-> SPLIT settings; flashed over UART1 and running on the board, not yet flown.
 MFD-Bridge-Setup-1.3.1.exe built (bundles fw 1.3.1); the bridge needs >= 1.3.0 for lookups.
 1.3.2 (2026-10-27): PARK BRAKE annunciation on the PFD (pfd.pbrk / pfd.gnd from the bridge:
 MSFS BRAKE PARKING POSITION, X-Plane parking_brake_ratio >= 0.5; yellow when set, red flashing
@@ -159,6 +159,6 @@ dependencies; Python-SimConnect is AGPL-3.0, esptool GPL-2.0+, Arduino core / We
 Setup shows installer/LICENSE_AGREEMENT.txt ("use at your own risk" + MIT) with an agree tick
 box replacing the radios (mfd_bridge.iss BuildAgreeBox), installs LICENSE.txt, TERMS.txt and the
 notices, Start menu "License and notices". App: About button. Display: status window lines.
-New board: on this unit the UART1/UART2 slide switch had to be moved before esptool got any
-serial data ("No serial data received" = wrong switch position).
+New boards: esptool's "No serial data received" on the CH343 port means the UART1/UART2 slide
+switch is in the wrong position; move it, then repeat BOOT + RESET.
 Ideas: keep the Direct-To in NVS across restarts; Direct-To to VORs/NDBs; a full HSI page.
