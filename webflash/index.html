@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MFD Firmware Installer</title>
+<script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
+<style>
+  :root { --ink:#1b2129; --dim:#5b6673; --bg:#fff; --panel:#f5f7f9; --accent:#0b7fa8; }
+  @media (prefers-color-scheme: dark) { :root { --ink:#e8edf2; --dim:#9aa6b2; --bg:#12161a; --panel:#1a2026; --accent:#4cc3ec; } }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.55 "Segoe UI", system-ui, sans-serif; }
+  main { max-width: 640px; margin: 0 auto; padding: 32px 16px; }
+  h1 { font-size: 26px; margin: 0 0 6px; }
+  p.sub { color: var(--dim); margin-top: 0; }
+  ol li { margin: 6px 0; }
+  .box { background: var(--panel); border-radius: 8px; padding: 18px; margin: 20px 0; text-align: center; }
+  esp-web-install-button button[slot="activate"] { font: 600 17px "Segoe UI", sans-serif; padding: 12px 26px; border: 0;
+    border-radius: 6px; background: var(--accent); color: #fff; cursor: pointer; }
+  .small { font-size: 14px; color: var(--dim); }
+</style>
+</head>
+<body>
+<main>
+  <h1>MFD display firmware</h1>
+  <p class="sub">Install or update the firmware from this page. Use Chrome or Edge on a computer; nothing else is needed.</p>
+  <ol>
+    <li>On the back of the display, slide the switch next to <b>BOOT</b> to <b>UART1</b>.</li>
+    <li>Connect the USB cable to the port marked <b>UART1</b>.</li>
+    <li>Hold <b>BOOT</b>, press and release <b>RESET</b>, then release <b>BOOT</b>.</li>
+    <li>Click <b>Install</b> and choose the port called <i>USB-Enhanced-SERIAL CH343</i>.</li>
+    <li>When it finishes, move the cable to the port marked <b>USB</b>. The display starts. If this is its first start, set up WiFi on the Settings page.</li>
+  </ol>
+  <div class="box">
+    <esp-web-install-button manifest="manifest.json">
+      <button slot="activate">Install</button>
+      <span slot="unsupported">This browser can't talk to USB devices. Use Chrome or Edge on a computer.</span>
+      <span slot="not-allowed">This page must be opened over https.</span>
+    </esp-web-install-button>
+  </div>
+  <p class="small">Your WiFi settings are kept unless you tick "Erase device" in the installer.</p>
+</main>
+</body>
+</html>

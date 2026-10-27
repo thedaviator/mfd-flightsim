@@ -1,0 +1,93 @@
+MFD Bridge and MFD display firmware - third-party notices
+=========================================================
+
+MFD Bridge and the MFD display firmware are open-source software, copyright (c) 2026
+AeroRelics - David Eckert, released under the MIT License (see LICENSE.txt).
+
+Source code, releases and issues:  https://github.com/thedaviator/mfd-flightsim
+
+They are built on the open-source components and public data listed below. Each keeps
+its own license, which applies to that component. All components are included
+unmodified. Their source code is available from the project pages listed. On request
+(open an issue at the address above), AeroRelics will also provide the complete source
+code of any version it has distributed, for at least three years after distribution.
+
+Trademarks: Microsoft Flight Simulator and SimConnect are trademarks of Microsoft
+Corporation; X-Plane is a trademark of Laminar Research; Garmin, Avidyne and Waveshare
+are trademarks of their owners. This project is not affiliated with, endorsed by or
+supported by any of them. "Garmin-style" describes a look, not a product.
+
+
+MFD Bridge (Windows app)
+------------------------
+
+Python                    Python Software Foundation License
+                          https://www.python.org/
+Tcl/Tk (tkinter)          Tcl/Tk License (BSD-style)
+                          https://www.tcl-lang.org/software/tcltk/license.html
+PyInstaller bootloader    GPL-2.0-or-later with the PyInstaller bootloader exception,
+                          which allows bundling programs under any license
+                          https://github.com/pyinstaller/pyinstaller
+Python-SimConnect         GNU Affero General Public License v3.0 (AGPL-3.0)
+                          https://github.com/odwdinc/Python-SimConnect
+SimConnect.dll            Copyright (c) Microsoft Corporation. Part of the Microsoft
+                          Flight Simulator SDK, redistributed with Python-SimConnect
+                          under the SDK terms.
+websockets                BSD-3-Clause
+                          https://github.com/python-websockets/websockets
+pySerial                  BSD-3-Clause
+                          https://github.com/pyserial/pyserial
+NumPy                     BSD-3-Clause (includes OpenBLAS, BSD-3-Clause)
+                          https://numpy.org/
+Pillow                    MIT-CMU (HPND) License
+                          https://python-pillow.org/
+h5py                      BSD-3-Clause (includes the HDF5 library, BSD-style license
+                          of The HDF Group)
+                          https://www.h5py.org/
+esptool                   GPL-2.0-or-later. Used by "Update display over USB".
+                          https://github.com/espressif/esptool
+Microsoft Visual C++      Microsoft Software License Terms. Installed by setup only
+Redistributable           when it is missing.
+
+
+MFD display firmware (ESP32-S3)
+-------------------------------
+
+LVGL 8.4                  MIT License
+                          https://github.com/lvgl/lvgl
+Montserrat font           SIL Open Font License 1.1 (built into LVGL)
+                          https://github.com/JulietaUla/Montserrat
+Font Awesome symbols      Font Awesome Free: icons CC BY 4.0, font SIL OFL 1.1 (built
+                          into LVGL)  https://fontawesome.com/license/free
+ArduinoJson               MIT License
+                          https://github.com/bblanchon/ArduinoJson
+arduinoWebSockets         LGPL-2.1
+                          https://github.com/Links2004/arduinoWebSockets
+Arduino core for ESP32    LGPL-2.1
+                          https://github.com/espressif/arduino-esp32
+ESP-IDF                   Apache License 2.0
+                          https://github.com/espressif/esp-idf
+
+The firmware's own source code is released under the MIT License, so it can be rebuilt
+and relinked against modified versions of the LGPL components above.
+
+
+Data and online services
+------------------------
+
+Airports, runways, frequencies, navaids
+                          OurAirports, public domain
+                          https://ourairports.com/data/
+Weather radar             RainViewer API, used under its terms of use. Radar data:
+                          RainViewer.  https://www.rainviewer.com/api.html
+Lightning                 NOAA GOES-R Geostationary Lightning Mapper, U.S. Government
+                          work (public domain), via NOAA Open Data Dissemination on AWS
+                          https://registry.opendata.aws/noaa-goes/
+METARs                    NOAA / National Weather Service, aviationweather.gov, public
+                          domain  https://aviationweather.gov/data/api/
+Terrain elevation         Terrain Tiles (Mapzen / Amazon Web Services). Elevation data
+                          from SRTM, GMTED2010, ETOPO1, USGS 3DEP and other sources; see
+                          https://github.com/tilezen/joerd/blob/master/docs/attribution.md
+
+Data from these services may be incomplete, out of date or wrong, and is for flight
+simulation only.

@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MFD Quick Start</title>
+<style>
+  :root { --ink:#1b2129; --dim:#5b6673; --line:#dfe4ea; --accent:#0b7fa8; --warn:#9a6400; --bg:#ffffff; --panel:#f5f7f9; }
+  @media (prefers-color-scheme: dark) {
+    :root { --ink:#e8edf2; --dim:#9aa6b2; --line:#2c343d; --accent:#4cc3ec; --warn:#e0a63a; --bg:#12161a; --panel:#1a2026; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.55 "Segoe UI", system-ui, sans-serif; }
+  main { max-width: 820px; margin: 0 auto; padding: 32px 20px 64px; }
+  h1 { font-size: 30px; margin: 0 0 4px; }
+  .sub { color: var(--dim); margin: 0 0 28px; }
+  h2 { font-size: 21px; margin: 36px 0 10px; padding-top: 14px; border-top: 1px solid var(--line); }
+  h2 .n { display:inline-block; width:30px; height:30px; border-radius:50%; background:var(--accent); color:#fff;
+          text-align:center; line-height:30px; font-size:16px; margin-right:10px; }
+  ol, ul { padding-left: 24px; }
+  li { margin: 5px 0; }
+  .note { background: var(--panel); border-left: 4px solid var(--accent); padding: 10px 14px; border-radius: 4px; margin: 14px 0; }
+  .warn { border-left-color: var(--warn); }
+  kbd { font: 13px Consolas, monospace; border:1px solid var(--line); border-bottom-width:2px; border-radius:4px; padding:1px 6px; background:var(--panel); }
+  table { border-collapse: collapse; width: 100%; margin: 10px 0; }
+  th, td { text-align: left; vertical-align: top; padding: 7px 10px; border-bottom: 1px solid var(--line); }
+  th { color: var(--dim); font-weight: 600; font-size: 14px; }
+  .ports { font-family: Consolas, monospace; font-size: 14px; background: var(--panel); padding: 12px 14px; border-radius: 6px; white-space: pre; overflow-x: auto; }
+</style>
+</head>
+<body>
+<main>
+<h1>Flight-sim MFD: Quick Start</h1>
+<p class="sub">A Garmin-style touchscreen display for Microsoft Flight Simulator and X-Plane 12</p>
+
+<p><b>You need:</b></p>
+<ul>
+  <li>The display (Waveshare ESP32-S3-Touch-LCD-7)</li>
+  <li>A USB-C cable that carries data (some cables only charge)</li>
+  <li>A Windows 10 or 11 PC (64-bit) running MSFS 2020/2024 or X-Plane 12</li>
+  <li>A WiFi network that the PC is also on</li>
+</ul>
+
+<div class="note warn"><b>2.4 GHz WiFi only.</b> The display cannot join 5 GHz-only networks. Most home routers broadcast both bands under one name, so this usually just works. If the display cannot connect, check that your router has 2.4 GHz turned on.</div>
+
+<h2><span class="n">1</span>Install MFD Bridge on the sim PC</h2>
+<ol>
+  <li>Run <b>MFD-Bridge-Setup.exe</b>. If Windows shows <i>"Windows protected your PC"</i>, click <b>More info</b>, then <b>Run anyway</b>. The installer is not code-signed.</li>
+  <li>Setup checks the PC first and lists what it found on the <b>Ready to Install</b> page: Windows version, the Microsoft Visual C++ runtime, and any installed simulators. It installs anything missing by itself. You don't need to install Python or anything else.</li>
+  <li>Tick <b>Start MFD Bridge with Windows</b> if you want it running whenever you fly.</li>
+  <li>The installer also allows MFD Bridge through Windows Firewall, so the display can reach it.</li>
+</ol>
+<p>The MFD Bridge window shows three status lights: <b>Simulator</b>, <b>Display</b> and <b>This PC</b>. The last one shows the PC's name and network address.</p>
+
+<h2><span class="n">2</span>Power up the display</h2>
+<p>The display has two USB-C ports on the back. For normal use, plug the cable into the one marked <b>USB</b>:</p>
+<div class="ports">  [UART1]  &lt;- only for firmware updates
+  [ USB ]  &lt;- normal use: power for the display</div>
+<p>On first start the display opens its <b>Settings</b> page (the gear key on the bottom row).</p>
+
+<h2><span class="n">3</span>Connect the display to WiFi</h2>
+<ol>
+  <li>Tap your network in the list. Tap <b>SCAN</b> if it isn't shown.</li>
+  <li>Type the password on the on-screen keyboard. <b>SHOW</b> lets you check it. Tap <kbd>&#10003;</kbd> to close the keyboard.</li>
+  <li>Leave <b>BRIDGE PC</b> empty. The display finds the PC by itself.</li>
+  <li>Tap <b>SAVE &amp; CONNECT</b>. The status box turns green: <i>WiFi: YourNetwork IP …</i>, then <i>Bridge: connected</i>.</li>
+</ol>
+<p>The settings are saved in the display and survive power-offs and firmware updates.</p>
+<div class="note">If the status stays on <i>Bridge: searching…</i>, your network may block broadcasts (guest WiFi, some mesh systems). Click <b>Copy address</b> in the MFD Bridge window, type that address into <b>BRIDGE PC</b> on the display, and tap <b>SAVE &amp; CONNECT</b> again.</div>
+
+<h2><span class="n">4</span>Fly</h2>
+<p>Start the simulator and load a flight. MFD Bridge detects MSFS or X-Plane automatically, the <b>Simulator</b> light turns green, and the display comes alive. To try everything without a simulator, set <b>Simulator</b> to <i>Demo flight</i> in MFD Bridge and click <b>Apply</b>.</p>
+<table>
+  <tr><th>Key</th><th>Page</th><th>Touch</th></tr>
+  <tr><td>PFD</td><td>Attitude, airspeed and altitude tapes, VSI, heading. A yellow PARK BRAKE box while the parking brake is set; it turns red and flashes if you start rolling faster than 10 kt or take off with it set.</td><td>-</td></tr>
+  <tr><td>MAP</td><td>Moving map with flight plan, airports, VORs and NDBs</td><td>+ / - to zoom, NORTH UP / TRK UP</td></tr>
+  <tr><td>NRST</td><td>Nearest airports with their current METAR and flight category</td><td>Tap an airport to put its frequency in COM1 standby</td></tr>
+  <tr><td>WX</td><td>Weather radar and lightning</td><td>RADAR / LTNG, + / -</td></tr>
+  <tr><td>RADIO</td><td>COM1/2, NAV1/2, transponder</td><td>Tap a standby frequency or the squawk, type it, then ENT. The swap key exchanges active and standby.</td></tr>
+  <tr><td>AP</td><td>Autopilot modes and selectors</td><td>Hold a +/- key to change values quickly. SYNC sets the current value.</td></tr>
+  <tr><td>EIS</td><td>Engine gauges, CHT and EGT, fuel, electrical</td><td>-</td></tr>
+  <tr><td>D&rarr;</td><td>Direct-To: fly straight to an airport. Magenta course on the map, WPT / DIS / DTK / TRK / ETE, and the CDI on the map and the PFD</td><td>Type the ident (KABE, or ABE) or tap a nearest airport, then ACTIVATE. Press D&rarr; again to restart or cancel it.</td></tr>
+  <tr><td>SPLIT</td><td>PFD on the left, another page on the right</td><td>-</td></tr>
+  <tr><td>&#9881;</td><td>Settings</td><td>WiFi and bridge address</td></tr>
+</table>
+<p>Top-bar shortcuts: tap COM or NAV to tune, long-press to swap. Tap XPDR to enter a squawk. Long-press XPDR for a status window with WiFi, link and frame rate.</p>
+<p>To show a complete route on the map, pick your <b>.pln</b> (MSFS) or <b>.fms</b> (X-Plane) file under <b>Flight plan</b> in MFD Bridge and click Apply. The simulators only share the current leg.</p>
+
+<h2><span class="n">5</span>Updating the display firmware</h2>
+<p>Each new version of MFD Bridge includes the matching display firmware. After you install it, the display shows <i>FIRMWARE … AVAILABLE</i>:</p>
+<ol>
+  <li>On the display, open <b>Settings</b> (the gear key).</li>
+  <li>Tap <b>INSTALL</b>. The display downloads the update over WiFi, shows the progress, and restarts after about a minute. Keep it powered until it has restarted.</li>
+</ol>
+<p>Your settings are kept. If the update is interrupted, the display keeps running the firmware it had.</p>
+<p><b>First install or recovery (USB):</b> only needed for a display that has never had this firmware, or one that no longer starts.</p>
+<ol>
+  <li>On the back of the display, slide the small switch next to <b>BOOT</b> to <b>UART1</b>.</li>
+  <li>Move the cable to the port marked <b>UART1</b>. The screen may stay dark, which is normal on this port.</li>
+  <li>Hold <b>BOOT</b>, press and release <b>RESET</b>, then release <b>BOOT</b>.</li>
+  <li>In MFD Bridge click <b>Update display over USB…</b>, check the port, then click <b>Update</b>.</li>
+  <li>When it says <i>Done</i>, move the cable back to the <b>USB</b> port.</li>
+</ol>
+
+<h2>Troubleshooting</h2>
+<table>
+  <tr><th>You see</th><th>Do this</th></tr>
+  <tr><td>Screen stays dark</td><td>Touch it: it may be asleep (see <b>SCREEN SLEEP</b> on the Settings page; it also wakes by itself when a flight starts). Otherwise make sure the cable is in the <b>USB</b> port. On the UART1 port the display waits for a firmware update and stays dark. Press RESET.</td></tr>
+  <tr><td>Screen dims, then goes dark</td><td>Screen sleep: no flight data for the time set under <b>SCREEN SLEEP</b> on the Settings page (default 10 minutes). It wakes when flight data arrives or when you touch it; that first touch only wakes it. Choose <b>OFF</b> to keep it on.</td></tr>
+  <tr><td><i>SETUP WIFI</i> or <i>NO WIFI</i> (top right)</td><td>Open Settings (gear key) and check the network name, the password, and that 2.4 GHz is on.</td></tr>
+  <tr><td><i>NO BRIDGE</i></td><td>Is MFD Bridge running on the PC? Is the PC on the same network? Try the bridge address step in section 3.</td></tr>
+  <tr><td><i>NO SIM</i> / <i>NO FLIGHT DATA</i></td><td>The display is connected but no simulator is sending data. Start a flight. For X-Plane on another PC, enter that PC's address under <b>X-Plane PC</b> in MFD Bridge.</td></tr>
+  <tr><td>Radio or autopilot buttons do nothing in some aircraft</td><td>Some aircraft (G1000 NXi, G3000, many add-ons) use their own controls instead of the simulator's standard ones. Most default general-aviation aircraft work.</td></tr>
+  <tr><td>No INSTALL button although MFD Bridge says an update is ready</td><td>Open the Settings page; the button sits next to the firmware version. Check that the display is connected to this PC's MFD Bridge (Settings: <i>Bridge: connected</i>).</td></tr>
+  <tr><td>USB firmware update can't connect</td><td>Check the UART1 switch and that the cable is in the UART1 port, then repeat the BOOT/RESET step. Close 3D-printer software (Cura, PrusaSlicer): it grabs serial ports.</td></tr>
+</table>
+<div class="note">Neither simulator gives add-ons weather-radar or lightning data, so MFD Bridge downloads real-world weather: RainViewer radar (worldwide where there are weather radars) and NOAA GOES satellite lightning (the Americas only). It matches what you see when the sim uses <b>live weather</b>. Flying with preset weather or without internet? Choose <b>Simulated storms</b> under <i>Weather page</i> in MFD Bridge; the page then labels them <b>SIMULATED</b>. METARs on the NRST page also come from the internet (aviationweather.gov) and can be turned off there.</div>
+<div class="note"><b>For flight simulation only.</b> MFD Bridge and the MFD display are not certified avionics; never use them for real-world flight or navigation. Use them at your own risk. They are free, open-source software, copyright &copy; 2026 AeroRelics - David Eckert, under the MIT License, provided "as is" without warranty. The open-source components and data sources they use are listed in <b>License and notices</b> in the Start menu (THIRD_PARTY_NOTICES.txt). Not affiliated with Microsoft, Laminar Research, Garmin, Avidyne or Waveshare.</div>
+</main>
+</body>
+</html>

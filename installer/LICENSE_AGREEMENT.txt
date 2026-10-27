@@ -1,0 +1,73 @@
+MFD BRIDGE AND MFD DISPLAY FIRMWARE
+Use at your own risk - please read before installing
+
+1. FOR FLIGHT SIMULATION ONLY
+
+MFD Bridge and the MFD display are for entertainment and practice with flight
+simulators (Microsoft Flight Simulator, X-Plane). They are NOT certified avionics.
+NEVER use them for real-world flight, navigation, weather avoidance, terrain avoidance
+or any other purpose where an error could cause injury, death, or damage to property.
+
+The navigation, airport, weather and terrain information they show comes from free
+third-party sources and from your simulator. It may be incomplete, out of date or
+wrong.
+
+2. USE AT YOUR OWN RISK
+
+You install and use this software, and load firmware onto your display hardware, at
+your own risk. The authors are not responsible for any loss, damage or harm of any
+kind, including damage to your computer, simulator installation, display hardware or
+data, lost time, or failure of the software to work as expected.
+
+Updating the display's firmware, over WiFi or USB, may leave it unusable if the update
+is interrupted. Keep the display powered until an update has finished.
+
+3. NO WARRANTY
+
+The software is provided "AS IS", without warranty of any kind, as set out in the MIT
+License below.
+
+4. OPEN SOURCE
+
+This is free, open-source software. You may use, copy, modify and share it under the
+terms of the MIT License below. Source code and updates:
+https://github.com/thedaviator/mfd-flightsim It includes open-source components and public data
+that keep their own licenses; THIRD_PARTY_NOTICES.txt in the installation folder lists
+them (Start menu > MFD Bridge > License and notices).
+
+This project is not affiliated with, endorsed by or supported by Microsoft, Laminar
+Research, Garmin, Avidyne or Waveshare. All trademarks belong to their owners.
+
+5. NETWORK
+
+MFD Bridge opens TCP ports 8080 and 8082 and sends a UDP announcement on port 8081 on
+your local network, so the display can find it. It connects to the internet for
+weather, METARs, airport data and terrain tiles. It collects no personal data and
+sends nothing to the authors.
+
+By ticking "I have read and agree" you confirm that you have read and accept these
+terms and the MIT License below.
+
+
+------------------------------------------------------------------------------------
+MIT License
+
+Copyright (c) 2026 AeroRelics - David Eckert
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

@@ -1,0 +1,6 @@
+SimConnect>=0.4.26   # Python-SimConnect, MSFS only
+websockets>=13
+pyserial>=3.5       # only for --serial
+numpy>=1.26         # weather: radar grid
+pillow>=10          # weather: RainViewer radar tiles
+h5py>=3.10          # weather: GOES lightning files (NetCDF4 / HDF5)

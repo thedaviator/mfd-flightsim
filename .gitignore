@@ -1,0 +1,25 @@
+# Build output and tool caches (PlatformIO, ESP-IDF component manager, Python)
+.pio/
+.vscode/
+.dummy/
+managed_components/
+dependencies.lock
+__pycache__/
+sdkconfig.defaults
+sdkconfig.*
+
+# Private: WiFi defaults
+src/secrets.h
+
+# Not ours to publish: the board's original Waveshare firmware
+backup/
+
+# Installers and firmware images go on the GitHub Releases page, not in the repository
+release/
+
+# Downloaded on first run (OurAirports CSVs, airport cache)
+bridge/data/
+
+# PC preview: generated files (screenshots stay in docs/)
+tools/ui_preview/out/
+tools/ui_preview/terrain/
