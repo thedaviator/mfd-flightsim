@@ -26,7 +26,7 @@ import navdb
 import terrain_sd
 
 APP_NAME = "MFD Bridge"
-APP_VERSION = "1.3.2"
+APP_VERSION = "1.3.3"
 FROZEN = getattr(sys, "frozen", False)
 BUNDLE = getattr(sys, "_MEIPASS", os.path.dirname(os.path.abspath(__file__)))
 APPDATA = os.path.join(os.environ.get("APPDATA", os.path.expanduser("~")), APP_NAME)

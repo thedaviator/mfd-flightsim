@@ -17,6 +17,7 @@ static bool s_narrow;
 static lv_obj_t *s_root;
 static lv_obj_t *s_act[4], *s_stby_btn[F_COUNT];
 static lv_obj_t *s_mode_btn[3];
+static lv_obj_t *s_nav_name[2], *s_nav_tag[2];  // NAV1/NAV2 row names: tap one to show it in the top bar
 static lv_obj_t *s_pad;                 // keypad container
 static lv_obj_t *s_pad_title, *s_pad_entry;
 static lv_obj_t *s_keys[12];
@@ -205,6 +206,25 @@ static void swap_cb(lv_event_t *e) {
 
 static void mode_cb(lv_event_t *e) { cmd_xpdr_mode(XPDR_MODES[(intptr_t)lv_event_get_user_data(e)]); }
 
+// The NAV row the top bar shows: its name in cyan with a "TOP BAR" tag under it.
+static void refresh_top_nav() {
+    for (int k = 0; k < 2; k++) {
+        if (!s_nav_name[k]) continue;
+        bool on = ui_top_nav() == k + 1;
+        ui_set_color(s_nav_name[k], on ? COL_CYAN : COL_DIM);
+        if (on) lv_obj_clear_flag(s_nav_tag[k], LV_OBJ_FLAG_HIDDEN);
+        else lv_obj_add_flag(s_nav_tag[k], LV_OBJ_FLAG_HIDDEN);
+    }
+}
+
+static void top_nav_cb(lv_event_t *e) {
+    int nav = (int)(intptr_t)lv_event_get_user_data(e);
+    if (nav == ui_top_nav()) return;
+    ui_set_top_nav(nav);
+    refresh_top_nav();
+    ui_toast(nav == 2 ? "TOP BAR SHOWS NAV2" : "TOP BAR SHOWS NAV1", COL_CYAN);
+}
+
 static void vfr_cb(lv_event_t *) {
     cmd_xpdr("1200");
     ui_toast("SQUAWK 1200 (VFR)", COL_CYAN);
@@ -225,8 +245,25 @@ static void radio_create(lv_obj_t *parent, lv_coord_t w, lv_coord_t h) {
         lv_obj_set_style_bg_color(row, COL_PANEL, 0);
         lv_obj_set_style_bg_opa(row, LV_OPA_COVER, 0);
         lv_obj_set_style_radius(row, 6, 0);
-        lv_obj_t *name = ui_label(row, s_narrow ? FONT_16 : FONT_20, COL_DIM, FIELD_NAME[i]);
-        lv_obj_align(name, LV_ALIGN_LEFT_MID, 8, 0);
+        lv_obj_t *name;
+        if (is_nav((Field)i)) {
+            // The whole name area is a tap target that picks the top bar's NAV radio.
+            int k = i - F_NAV1;
+            lv_obj_t *tap = ui_box(row, 0, 0, x_act - 6, row_h);
+            lv_obj_add_flag(tap, LV_OBJ_FLAG_CLICKABLE);
+            lv_obj_set_style_radius(tap, 6, 0);
+            lv_obj_set_style_bg_color(tap, lv_color_hex(0x30404E), LV_STATE_PRESSED);
+            lv_obj_set_style_bg_opa(tap, LV_OPA_COVER, LV_STATE_PRESSED);
+            lv_obj_add_event_cb(tap, top_nav_cb, LV_EVENT_CLICKED, (void *)(intptr_t)(k + 1));
+            name = ui_label(tap, s_narrow ? FONT_16 : FONT_20, COL_DIM, FIELD_NAME[i]);
+            lv_obj_align(name, LV_ALIGN_LEFT_MID, 8, -7);
+            s_nav_name[k] = name;
+            s_nav_tag[k] = ui_label(tap, FONT_12, COL_CYAN, s_narrow ? "TOP" : "TOP BAR");
+            lv_obj_align(s_nav_tag[k], LV_ALIGN_LEFT_MID, 8, 14);
+        } else {
+            name = ui_label(row, s_narrow ? FONT_16 : FONT_20, COL_DIM, FIELD_NAME[i]);
+            lv_obj_align(name, LV_ALIGN_LEFT_MID, 8, 0);
+        }
         if (i < 4) {
             s_act[i] = ui_label(row, f_freq, COL_TEXT, "---.---");
             lv_obj_align(s_act[i], LV_ALIGN_LEFT_MID, x_act - 4, 0);
@@ -253,6 +290,7 @@ static void radio_create(lv_obj_t *parent, lv_coord_t w, lv_coord_t h) {
     } else {
         build_keypad(parent, 480, 0, w - 480, h, false);
     }
+    refresh_top_nav();
     s_seq = 0;
     s_was_live = !g_live;
     Field f = s_pending != F_NONE ? s_pending : F_NONE;
@@ -282,6 +320,8 @@ static void radio_destroy() {
     s_pad = nullptr;
     s_field = F_NONE;
     memset(s_stby_btn, 0, sizeof(s_stby_btn));
+    memset(s_nav_name, 0, sizeof(s_nav_name));
+    memset(s_nav_tag, 0, sizeof(s_nav_tag));
 }
 
 void radio_preselect(const char *field) {

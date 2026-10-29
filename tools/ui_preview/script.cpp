@@ -24,6 +24,13 @@ void preview_script(void (*click)(int, int, uint32_t), void (*run)(uint32_t), vo
     tap(258, 87);                               // COM1 swap
     expect("\"cmd\":\"swap\",\"radio\":\"com1\"");
 
+    printf("Radio page: top bar shows NAV2, then NAV1 again\n");
+    tap(34, 44 + 8 + 3 * 74 + 35);              // NAV2 name
+    run(200);
+    shot("radio_topnav2");
+    tap(34, 44 + 8 + 2 * 74 + 35);              // NAV1 name
+    run(200);
+
     printf("Radio page: squawk 7000\n");
     tap(128, 383);                              // XPDR code field
     digit(7); digit(0); digit(0); digit(0);

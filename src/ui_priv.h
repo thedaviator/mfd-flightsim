@@ -65,6 +65,9 @@ extern UiPlatform g_platform;
 
 // Radio page: preselect a field for keypad entry ("com1", "com2", "nav1", "nav2", "xpdr").
 void radio_preselect(const char *field);
+// Which NAV radio the top bar shows: 1 or 2 (chosen on the RADIO page, kept in flash).
+int ui_top_nav();
+void ui_set_top_nav(int nav);
 
 // Direct-To window (ui_dct.cpp), over the page area and the softkeys.
 void dct_window_build(lv_obj_t *scr, lv_obj_t *softkey);

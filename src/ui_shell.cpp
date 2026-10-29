@@ -44,7 +44,8 @@ static void update_sleep();
 
 // Top bar labels
 static lv_obj_t *s_com_act, *s_com_stby;
-static lv_obj_t *s_nav_act, *s_nav_stby;
+static lv_obj_t *s_nav_act, *s_nav_stby, *s_nav_cap;
+static int s_top_nav = 1;                // NAV radio in the top bar: 1 or 2 (some aircraft have only NAV2)
 static lv_obj_t *s_ap_main, *s_ap_lat, *s_ap_vert, *s_ap_arm;
 static lv_obj_t *s_xpdr_code, *s_xpdr_mode, *s_link;
 
@@ -175,7 +176,7 @@ static lv_obj_t *topcell(lv_obj_t *bar, lv_coord_t x, lv_coord_t w, lv_event_cb_
 
 // Tap: open the radio page on that field. Long press: swap active and standby.
 static void radio_cell_cb(lv_event_t *e) {
-    const char *radio = lv_event_get_user_data(e) ? "com1" : "nav1";
+    const char *radio = lv_event_get_user_data(e) ? "com1" : s_top_nav == 2 ? "nav2" : "nav1";
     if (lv_event_get_code(e) == LV_EVENT_LONG_PRESSED) {
         cmd_swap(radio);
         char m[32];
@@ -217,7 +218,8 @@ static void build_topbar(lv_obj_t *scr) {
     lv_obj_set_pos(s_com_stby, 124, 17);
 
     c = topcell(bar, 224, 196, radio_cell_cb, nullptr);
-    lv_obj_set_pos(ui_label(c, FONT_12, COL_DIM, "NAV1"), 8, 1);
+    s_nav_cap = ui_label(c, FONT_12, COL_DIM, "NAV1");
+    lv_obj_set_pos(s_nav_cap, 8, 1);
     s_nav_act = ui_label(c, FONT_24, COL_TEXT, "---.--");
     lv_obj_set_pos(s_nav_act, 8, 14);
     s_nav_stby = ui_label(c, FONT_20, COL_CYAN, "---.--");
@@ -252,8 +254,10 @@ static void update_topbar() {
     bool have = g_live && r.com1_act[0];
     ui_set_text(s_com_act, have ? r.com1_act : "---.---");
     ui_set_text(s_com_stby, have ? r.com1_stby : "---.---");
-    ui_set_text(s_nav_act, have ? r.nav1_act : "---.--");
-    ui_set_text(s_nav_stby, have ? r.nav1_stby : "---.--");
+    bool nav2 = s_top_nav == 2;
+    ui_set_text(s_nav_cap, nav2 ? "NAV2" : "NAV1");
+    ui_set_text(s_nav_act, have ? (nav2 ? r.nav2_act : r.nav1_act) : "---.--");
+    ui_set_text(s_nav_stby, have ? (nav2 ? r.nav2_stby : r.nav1_stby) : "---.--");
 
     const Autopilot &a = g_t.ap;
     char buf[40];
@@ -364,6 +368,7 @@ void ui_init(const UiPlatform &platform) {
     dct_window_build(scr, s_dct_key);
     build_ota_overlay(scr);
     if (g_platform.load_sleep_min) s_sleep_min = g_platform.load_sleep_min();
+    if (g_platform.load_pref) s_top_nav = g_platform.load_pref("top_nav", 1) == 2 ? 2 : 1;
     build_sleep_overlay(scr);
     if (g_platform.get_settings) {
         NetSettings ns;
@@ -449,6 +454,16 @@ const char *ui_page_key() { return PAGES[s_page]->key; }
 // ---------------------------------------------------------------- screen sleep
 
 int ui_sleep_min() { return s_sleep_min; }
+
+int ui_top_nav() { return s_top_nav; }
+
+void ui_set_top_nav(int nav) {
+    nav = nav == 2 ? 2 : 1;
+    if (nav == s_top_nav) return;
+    s_top_nav = nav;
+    if (g_platform.save_pref) g_platform.save_pref("top_nav", nav);
+    update_topbar();
+}
 
 void ui_set_sleep_min(int minutes) {
     s_sleep_min = minutes;

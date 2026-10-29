@@ -65,7 +65,7 @@ The top bar always shows COM1 and NAV1 (active and standby), the autopilot modes
 | **MAP** | Aircraft-centred moving map: flight plan (active leg magenta), airports, VORs and NDBs. Nav data strip `WPT DIS DTK TRK ETE`, track vector, and a CDI with XTK whenever there is a course. | + / − range (1–200 nm), NORTH UP / TRK UP. |
 | **NRST** | Nearest 25 airports: ident, name, bearing (with a pointer relative to the nose), distance, longest runway, tower or CTAF frequency. | Tap an airport to put its frequency in COM1 standby. |
 | **WX** | RADAR: 120° heading-up sector with an animated sweep and precipitation cells. LTNG: 360° stormscope with strikes ageing over 2 minutes. | RADAR / LTNG, + / − range. |
-| **RADIO** | COM1, COM2, NAV1 and NAV2, active and standby. Transponder code and mode. | Tap a standby frequency or the squawk, then type on the keypad and press ENT. ⇄ swaps. STBY / GND / ALT, VFR. Frequencies all start with 1, so typing `183` gives 118.3. |
+| **RADIO** | COM1, COM2, NAV1 and NAV2, active and standby. Transponder code and mode. | Tap a standby frequency or the squawk, then type on the keypad and press ENT. ⇄ swaps. STBY / GND / ALT, VFR. Frequencies all start with 1, so typing `183` gives 118.3. Tap the NAV1 or NAV2 name to choose which one the top bar shows (for aircraft with only NAV2, such as the vFlyteAir Cherokee 140 with its original panel). |
 | **AP** | Mode keys AP, FD, YD, HDG, NAV, APR, BC, ALT, VS, FLC. Heading, altitude, VS and IAS selectors. | Selector keys repeat while held. SYNC sets the present value. |
 | **EIS** | Arc gauges: RPM, manifold pressure, fuel pressure, oil temperature, oil pressure. CHT and EGT bars per cylinder. Linear gauges: fuel L/R, volts, amps. Fuel flow and endurance. | — |
 
@@ -90,7 +90,7 @@ The Direct-To lives on the display. It is not sent to the simulator's GPS or aut
 
 Top bar shortcuts:
 
-- Tap COM or NAV to open the radio page on that field. Long-press to swap active and standby.
+- Tap COM or NAV to open the radio page on that field. Long-press to swap active and standby. The NAV box shows NAV1 or NAV2, as chosen on the RADIO page; the display remembers the choice.
 - Tap the autopilot box to open the AP page.
 - Tap XPDR to enter a squawk. Long-press XPDR for the system status window (WiFi, link, packet counts, frame rate, free memory).
 

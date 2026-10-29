@@ -84,6 +84,22 @@ static void save_sleep_min(int m) {
     p.end();
 }
 
+// Other small UI choices, same namespace.
+static int load_pref(const char *key, int def) {
+    Preferences p;
+    p.begin("ui", true);
+    int v = p.getInt(key, def);
+    p.end();
+    return v;
+}
+
+static void save_pref(const char *key, int value) {
+    Preferences p;
+    p.begin("ui", false);
+    p.putInt(key, value);
+    p.end();
+}
+
 void setup() {
     Serial.setRxBufferSize(16384);
     Serial.begin(SERIAL_BAUD);
@@ -121,7 +137,7 @@ void setup() {
     UiPlatform plat = {link_label, sys_info, link_get_settings, link_save_settings,
                        link_scan_start, link_scan_results, net_status,
                        FW_VERSION, link_ota_start, link_ota_status,
-                       board_backlight, load_sleep_min, save_sleep_min};
+                       board_backlight, load_sleep_min, save_sleep_min, load_pref, save_pref};
     ui_init(plat);
     lv_timer_handler();
     Serial.println("Ready");

@@ -27,6 +27,9 @@ struct UiPlatform {
     void (*backlight)(bool on);
     int (*load_sleep_min)();
     void (*save_sleep_min)(int minutes);
+    // Small UI preferences kept in flash (e.g. "top_nav": which NAV radio the top bar shows).
+    int (*load_pref)(const char *key, int def);
+    void (*save_pref)(const char *key, int value);
 };
 
 // Boot splash (before ui_init): show it, then hide it when the UI is about to start.

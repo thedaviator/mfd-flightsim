@@ -204,6 +204,8 @@ int main(int argc, char **argv) {
     plat.backlight = [](bool on) { printf("  backlight %s\n", on ? "on" : "off"); };
     plat.load_sleep_min = []() { return 10; };
     plat.save_sleep_min = [](int m) { printf("  sleep timeout saved: %d min\n", m); };
+    plat.load_pref = [](const char *, int def) { return def; };
+    plat.save_pref = [](const char *key, int v) { printf("  pref saved: %s=%d\n", key, v); };
     plat.ota_start = [](uint16_t port, const char *path) {
         printf("  ota requested: port %u path %s\n", port, path);
         s_ota_state = 1;

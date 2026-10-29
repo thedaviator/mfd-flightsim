@@ -161,4 +161,9 @@ box replacing the radios (mfd_bridge.iss BuildAgreeBox), installs LICENSE.txt, T
 notices, Start menu "License and notices". App: About button. Display: status window lines.
 New boards: esptool's "No serial data received" on the CH343 port means the UART1/UART2 slide
 switch is in the wrong position; move it, then repeat BOOT + RESET.
+1.3.3 (2026-10-29): top bar NAV box shows NAV1 or NAV2, picked by tapping the NAV row name on
+the RADIO page, kept in NVS "ui"/"top_nav" (UiPlatform load_pref / save_pref). Reason: the
+vFlyteAir Cherokee 140 (X-Plane 12) original panel has PAR 200 (COM1 only) + MX300 (COM2/NAV2),
+so NAV1 sat at X-Plane's defaults (108.00 / 113.70) and looked frozen. Not the bridge: its NAV
+datarefs/events are right. Tool for live X-Plane radio checks: write a small RREF/DREF probe.
 Ideas: keep the Direct-To in NVS across restarts; Direct-To to VORs/NDBs; a full HSI page.

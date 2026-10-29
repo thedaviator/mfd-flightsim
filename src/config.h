@@ -16,7 +16,7 @@
 #define BRIDGE_PORT        8080
 #define BEACON_PORT        8081
 #define SERIAL_BAUD        921600
-#define FW_VERSION         "mfd7 1.3.2"
+#define FW_VERSION         "mfd7 1.3.3"
 #define SPLASH_MS          3000          // boot splash
 
 // ---------------------------------------------------------------- display
